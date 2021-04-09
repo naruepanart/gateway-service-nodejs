@@ -25,22 +25,19 @@ app.post("/posts", async (req, res) => {
 
   posts.push(data);
 
-  await axios.post("http://localhost:4005/events", {
-    type: "PostCreated",
-    data,
-  });
+  for (let index = 0; index < 10000; index++) {
+    await axios.post("http://localhost:4005/events", {
+      type: "PostCreated",
+      data,
+    });
+  }
 
   res.status(201).send(data);
 });
 
 app.post("/events", (req, res) => {
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
-  console.log(
-    "post service",
-    req.body.data.id,
-    `${Math.round(used * 100) / 100} MB`,
-    posts.length
-  );
+  console.log("post service", req.body.data.id, `${Math.round(used * 100) / 100} MB`, posts.length);
 
   res.send({});
 });

@@ -25,7 +25,7 @@ app.post("/events", (req, res) => {
   handleEvent(type, data);
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
   console.log(
-    "gateway service2",
+    "get service",
     data.id,
     `${Math.round(used * 100) / 100} MB`,
     posts.length
